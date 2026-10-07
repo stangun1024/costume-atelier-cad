@@ -23,7 +23,9 @@ node scripts/run-cad-loop.mjs /path/to/ai-loop-packet.json /path/to/candidate.js
 
 `candidate.json` はアプリへ返す1件の `patch / inspect / ask / resolve / end` そのものです。`nextMessage` のformat/version/sessionId/requestId/baseFlowRevisionを維持し、typeと対応する項目を指定します。詳細は依頼内のcontractと `costume/implementation-loop.js` を参照してください。
 
-成功時の `preview/response.json` をそのままアプリへ返します。`report.json` と `pattern.svg` を確認してから返してください。失敗したら同じ依頼・同じヘッダーに対する候補を修正して再実行します。失敗時はresponse.jsonをnullに上書きします。
+人間とのやりとり・コピー貼り付けの往復回数をできるだけ抑えるため、返答前にAI側で可能な仕様確認・計測・加工の試行・結果確認・エラー修正を済ませてください。実行環境がある場合は、指定commitのCADと今回のlocalExecutionで候補を実行し、成功した `report.json` と `pattern.svg` を確認してから `preview/response.json` をそのままアプリへ返してください。失敗したら同じ依頼・同じヘッダーに対する候補を手元で修正・再実行します。AI側で解決できる確認や修正のためだけに人間へ中継を求めないでください。失敗時はresponse.jsonをnullに上書きします。
+
+実行できない場合も、JSON形式・契約・ID・依存順・数値・単位・目的との対応を確認してください。未実施の実行や図の確認を成功扱いにしません。人間の判断が必要な不明点は推測で埋めず、独立した質問を同じaskに並べ、各質問は1つの判断・1つの回答で完結させてください。
 
 この入口は、アプリと同じ原型・加工フロー・判断状態で1件を試行します。試行で発行された次のrequestIdやセッションをアプリへ持ち込む経路はありません。複数の加工は1件のpatchのchangesにまとめて試してください。成功した実際のアプリの返答を受け取るまで次の要求へ進みません。
 

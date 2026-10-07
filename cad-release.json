@@ -1,7 +1,7 @@
 {
   "format": "aicad-cad-release",
   "version": 1,
-  "releaseId": "dd206b45d7f29a4790f1a267a6cb2665cbafdd902777e0c86f33a7922c91f16d",
+  "releaseId": "586a8c450061f253a124d32f7dd78474de31282ce198b173130186bf03368a09",
   "files": {
     ".gitignore": "b3231edccb6a69cceaa2396f58dfb6b860b217d8ffa27f57651da411d8a8909e",
     "cad/authoring-forms.js": "dae386d0db73056931006d9380b2b7f064da7261273452237d9fcc9886466715",
@@ -103,7 +103,7 @@
     "pattern/references.js": "a5565313ab67dcc88a270d5ed68a231db214aed96f728a5534b9800c73d30b7a",
     "pattern/sewing.js": "1c5d642a729ef9c0323cb157f878b80739d93c173725d1e397b56f776ca33b06",
     "pattern/validation.js": "4088aabd378effed108e48181ea366dcee8aa856525016f988ddbba30fec16eb",
-    "README.md": "efa08256f9eb0b5a9400f1b1b2e1bbe78b0d46d511bcf5e7216a0bf7bc221eee",
+    "README.md": "d3ffd1128ec078ee0262db090de182595a174a21f70171e8fc35c620980f1374",
     "scripts/run-cad-loop.mjs": "055fa276de12b269b4007e7a91a94bf3dfd5c4bec9edd628750d1b19050dad1d",
     "scripts/run-implementation.mjs": "d07da3e1bc79b76dd73921da492b84715004568a6040af96b6cb1a7e0425be89",
     "scripts/tool-examples.mjs": "4b4449eaa426131587469a28631b5520637c5ed5266299f78e5121888f5457a1"
