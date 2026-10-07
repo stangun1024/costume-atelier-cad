@@ -1,0 +1,2724 @@
+{
+  "format": "aicad-drafting-recipe",
+  "version": 1,
+  "validation": "report",
+  "description": "局所座標mm・ラジアン。寸法式と作図順序の正本。曲線はmethod.curvePolicyに従う数値近似。",
+  "method": {
+    "id": "bunka-old",
+    "version": "0.1.0",
+    "name": "旧文化式・婦人原型（ダーツなし）",
+    "requiredMeasurements": [
+      "bust",
+      "backLength",
+      "armLength"
+    ],
+    "supportedDesignParameters": [
+      "sleeveLength"
+    ],
+    "unit": "mm",
+    "sources": [
+      "https://maisondeas.com/pattern-block-old-bunka/",
+      "https://ipatterning.com/womenprototype-old/",
+      "https://ipatterning.com/sleeve-old/"
+    ],
+    "curvePolicy": "guide-point-cubic-v1",
+    "inputRanges": {
+      "bust": [
+        760,
+        1000
+      ],
+      "backLength": [
+        330,
+        460
+      ],
+      "armLength": [
+        400,
+        700
+      ],
+      "sleeveLength": [
+        300,
+        800
+      ]
+    }
+  },
+  "templates": {
+    "old-bodice": {
+      "parameters": [
+        "front",
+        "d",
+        "frontNeck",
+        "backNeck",
+        "frontShoulder",
+        "backShoulder"
+      ],
+      "steps": [
+        {
+          "id": "id",
+          "value": {
+            "$if": {
+              "$ref": "front"
+            },
+            "then": "front",
+            "else": "back"
+          }
+        },
+        {
+          "id": "neckSide",
+          "value": {
+            "$if": {
+              "$ref": "front"
+            },
+            "then": {
+              "$ref": "frontNeck"
+            },
+            "else": {
+              "$ref": "backNeck"
+            }
+          }
+        },
+        {
+          "id": "shoulder",
+          "value": {
+            "$if": {
+              "$ref": "front"
+            },
+            "then": {
+              "$ref": "frontShoulder"
+            },
+            "else": {
+              "$ref": "backShoulder"
+            }
+          }
+        },
+        {
+          "id": "neckCenter",
+          "value": {
+            "$op": "point",
+            "args": [
+              0,
+              {
+                "$if": {
+                  "$ref": "front"
+                },
+                "then": {
+                  "$ref": "d.frontNeckDepth"
+                },
+                "else": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "underarm",
+          "value": {
+            "$op": "point",
+            "args": [
+              {
+                "$ref": "d.sideX"
+              },
+              {
+                "$ref": "d.armholeDepth"
+              }
+            ]
+          }
+        },
+        {
+          "id": "width",
+          "value": {
+            "$if": {
+              "$ref": "front"
+            },
+            "then": {
+              "$ref": "d.chestWidth"
+            },
+            "else": {
+              "$ref": "d.backWidth"
+            }
+          }
+        },
+        {
+          "id": "armholeMid",
+          "value": {
+            "$op": "point",
+            "args": [
+              {
+                "$ref": "width"
+              },
+              {
+                "$op": "divide",
+                "args": [
+                  {
+                    "$op": "add",
+                    "args": [
+                      {
+                        "$ref": "shoulder.y"
+                      },
+                      {
+                        "$ref": "d.armholeDepth"
+                      }
+                    ]
+                  },
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "diagonal",
+          "value": {
+            "$op": "add",
+            "args": [
+              {
+                "$ref": "d.armholeDiagonal"
+              },
+              {
+                "$if": {
+                  "$ref": "front"
+                },
+                "then": 0,
+                "else": 5
+              }
+            ]
+          }
+        },
+        {
+          "id": "armholeGuide",
+          "value": {
+            "$op": "point",
+            "args": [
+              {
+                "$op": "add",
+                "args": [
+                  {
+                    "$ref": "width"
+                  },
+                  {
+                    "$op": "divide",
+                    "args": [
+                      {
+                        "$ref": "diagonal"
+                      },
+                      1.4142135623730951
+                    ]
+                  }
+                ]
+              },
+              {
+                "$op": "subtract",
+                "args": [
+                  {
+                    "$ref": "d.armholeDepth"
+                  },
+                  {
+                    "$op": "divide",
+                    "args": [
+                      {
+                        "$ref": "diagonal"
+                      },
+                      1.4142135623730951
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "shoulderDirection",
+          "value": {
+            "$op": "normalize",
+            "args": [
+              {
+                "$op": "vectorTo",
+                "args": [
+                  {
+                    "$ref": "neckSide"
+                  },
+                  {
+                    "$ref": "shoulder"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "perpendicularDown",
+          "value": {
+            "$op": "vector",
+            "args": [
+              {
+                "$op": "multiply",
+                "args": [
+                  -1,
+                  {
+                    "$ref": "shoulderDirection.y"
+                  }
+                ]
+              },
+              {
+                "$ref": "shoulderDirection.x"
+              }
+            ]
+          }
+        },
+        {
+          "id": "armhole",
+          "value": {
+            "$op": "smooth",
+            "args": [
+              [
+                {
+                  "$ref": "shoulder"
+                },
+                {
+                  "$ref": "armholeMid"
+                },
+                {
+                  "$ref": "armholeGuide"
+                },
+                {
+                  "$ref": "underarm"
+                }
+              ],
+              [
+                {
+                  "$ref": "perpendicularDown"
+                },
+                {
+                  "$op": "vector",
+                  "args": [
+                    0,
+                    1
+                  ]
+                },
+                null,
+                {
+                  "$op": "vector",
+                  "args": [
+                    1,
+                    0
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "rectangleCorner",
+          "value": {
+            "$op": "point",
+            "args": [
+              {
+                "$ref": "d.frontNeckWidth"
+              },
+              {
+                "$ref": "d.frontNeckDepth"
+              }
+            ]
+          }
+        },
+        {
+          "id": "neckGuide",
+          "value": {
+            "$op": "translate",
+            "args": [
+              {
+                "$ref": "rectangleCorner"
+              },
+              {
+                "$op": "scale",
+                "args": [
+                  {
+                    "$op": "normalize",
+                    "args": [
+                      {
+                        "$op": "vectorTo",
+                        "args": [
+                          {
+                            "$ref": "rectangleCorner"
+                          },
+                          {
+                            "$op": "point",
+                            "args": [
+                              0,
+                              0
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "$op": "subtract",
+                    "args": [
+                      {
+                        "$op": "divide",
+                        "args": [
+                          {
+                            "$ref": "d.frontNeckWidth"
+                          },
+                          2
+                        ]
+                      },
+                      3
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "neckline",
+          "value": {
+            "$if": {
+              "$ref": "front"
+            },
+            "then": {
+              "$op": "smooth",
+              "args": [
+                [
+                  {
+                    "$ref": "neckCenter"
+                  },
+                  {
+                    "$ref": "neckGuide"
+                  },
+                  {
+                    "$ref": "neckSide"
+                  }
+                ],
+                [
+                  {
+                    "$op": "vector",
+                    "args": [
+                      1,
+                      0
+                    ]
+                  },
+                  null,
+                  {
+                    "$op": "scale",
+                    "args": [
+                      {
+                        "$ref": "perpendicularDown"
+                      },
+                      -1
+                    ]
+                  }
+                ]
+              ]
+            },
+            "else": {
+              "$op": "path",
+              "args": [
+                [
+                  {
+                    "$op": "cubic",
+                    "args": [
+                      {
+                        "$ref": "neckCenter"
+                      },
+                      {
+                        "$op": "point",
+                        "args": [
+                          {
+                            "$op": "multiply",
+                            "args": [
+                              {
+                                "$ref": "d.backNeckWidth"
+                              },
+                              0.7
+                            ]
+                          },
+                          0
+                        ]
+                      },
+                      {
+                        "$op": "translate",
+                        "args": [
+                          {
+                            "$ref": "neckSide"
+                          },
+                          {
+                            "$op": "scale",
+                            "args": [
+                              {
+                                "$ref": "perpendicularDown"
+                              },
+                              {
+                                "$op": "multiply",
+                                "args": [
+                                  {
+                                    "$ref": "d.backNeckRise"
+                                  },
+                                  0.7
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "$ref": "neckSide"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "id": "sideWaist",
+          "value": {
+            "$op": "point",
+            "args": [
+              {
+                "$op": "add",
+                "args": [
+                  {
+                    "$ref": "d.sideX"
+                  },
+                  {
+                    "$if": {
+                      "$ref": "front"
+                    },
+                    "then": 20,
+                    "else": -20
+                  }
+                ]
+              },
+              {
+                "$ref": "body.backLength"
+              }
+            ]
+          }
+        },
+        {
+          "id": "centerWaist",
+          "value": {
+            "$op": "point",
+            "args": [
+              0,
+              {
+                "$op": "add",
+                "args": [
+                  {
+                    "$ref": "body.backLength"
+                  },
+                  {
+                    "$if": {
+                      "$ref": "front"
+                    },
+                    "then": {
+                      "$op": "divide",
+                      "args": [
+                        {
+                          "$ref": "d.frontNeckWidth"
+                        },
+                        2
+                      ]
+                    },
+                    "else": 0
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "balanceHem",
+          "value": {
+            "$op": "point",
+            "args": [
+              {
+                "$op": "add",
+                "args": [
+                  {
+                    "$op": "divide",
+                    "args": [
+                      {
+                        "$ref": "d.chestWidth"
+                      },
+                      2
+                    ]
+                  },
+                  7
+                ]
+              },
+              {
+                "$ref": "centerWaist.y"
+              }
+            ]
+          }
+        },
+        {
+          "id": "waist",
+          "value": {
+            "$if": {
+              "$ref": "front"
+            },
+            "then": {
+              "$op": "path",
+              "args": [
+                [
+                  {
+                    "$op": "line",
+                    "args": [
+                      {
+                        "$ref": "sideWaist"
+                      },
+                      {
+                        "$ref": "balanceHem"
+                      }
+                    ]
+                  },
+                  {
+                    "$op": "line",
+                    "args": [
+                      {
+                        "$ref": "balanceHem"
+                      },
+                      {
+                        "$ref": "centerWaist"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            "else": {
+              "$op": "line",
+              "args": [
+                {
+                  "$ref": "sideWaist"
+                },
+                {
+                  "$ref": "centerWaist"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "location",
+          "value": {
+            "$op": "atY",
+            "args": [
+              {
+                "$ref": "armhole"
+              },
+              {
+                "$op": "add",
+                "args": [
+                  {
+                    "$op": "divide",
+                    "args": [
+                      {
+                        "$op": "add",
+                        "args": [
+                          {
+                            "$ref": "shoulder.y"
+                          },
+                          {
+                            "$ref": "d.armholeDepth"
+                          }
+                        ]
+                      },
+                      2
+                    ]
+                  },
+                  25
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "result": {
+        "$op": "piece",
+        "args": [
+          {
+            "id": {
+              "$ref": "id"
+            },
+            "name": {
+              "$if": {
+                "$ref": "front"
+              },
+              "then": "前身頃",
+              "else": "後身頃"
+            },
+            "edges": [
+              {
+                "id": "neckline",
+                "role": "open",
+                "path": {
+                  "$ref": "neckline"
+                }
+              },
+              {
+                "id": "shoulder",
+                "role": "sew",
+                "path": {
+                  "$op": "line",
+                  "args": [
+                    {
+                      "$ref": "neckSide"
+                    },
+                    {
+                      "$ref": "shoulder"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "armhole",
+                "role": "sew",
+                "path": {
+                  "$ref": "armhole"
+                }
+              },
+              {
+                "id": "side",
+                "role": "sew",
+                "path": {
+                  "$op": "line",
+                  "args": [
+                    {
+                      "$ref": "underarm"
+                    },
+                    {
+                      "$ref": "sideWaist"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "waist",
+                "role": "open",
+                "path": {
+                  "$ref": "waist"
+                }
+              },
+              {
+                "id": "center",
+                "role": "fold",
+                "path": {
+                  "$op": "line",
+                  "args": [
+                    {
+                      "$ref": "centerWaist"
+                    },
+                    {
+                      "$ref": "neckCenter"
+                    }
+                  ]
+                }
+              }
+            ],
+            "cut": {
+              "quantity": 1,
+              "onFold": true,
+              "mirroredPair": false,
+              "seamAllowance": 0
+            },
+            "grainline": {
+              "$op": "line",
+              "args": [
+                {
+                  "$op": "point",
+                  "args": [
+                    45,
+                    {
+                      "$op": "add",
+                      "args": [
+                        {
+                          "$ref": "d.armholeDepth"
+                        },
+                        25
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$op": "point",
+                  "args": [
+                    45,
+                    {
+                      "$op": "subtract",
+                      "args": [
+                        {
+                          "$ref": "body.backLength"
+                        },
+                        25
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "landmarks": {
+              "neckCenter": {
+                "$ref": "neckCenter"
+              },
+              "neckSide": {
+                "$ref": "neckSide"
+              },
+              "shoulder": {
+                "$ref": "shoulder"
+              },
+              "armholeMid": {
+                "$ref": "armholeMid"
+              },
+              "armholeGuide": {
+                "$ref": "armholeGuide"
+              },
+              "underarm": {
+                "$ref": "underarm"
+              },
+              "sideWaist": {
+                "$ref": "sideWaist"
+              },
+              "centerWaist": {
+                "$ref": "centerWaist"
+              }
+            },
+            "guides": {
+              "$op": "concat",
+              "args": [
+                [
+                  {
+                    "name": "バスト線",
+                    "path": {
+                      "$op": "line",
+                      "args": [
+                        {
+                          "$op": "point",
+                          "args": [
+                            0,
+                            {
+                              "$ref": "d.armholeDepth"
+                            }
+                          ]
+                        },
+                        {
+                          "$ref": "underarm"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": {
+                      "$if": {
+                        "$ref": "front"
+                      },
+                      "then": "胸幅線",
+                      "else": "背幅線"
+                    },
+                    "path": {
+                      "$op": "line",
+                      "args": [
+                        {
+                          "$op": "point",
+                          "args": [
+                            {
+                              "$ref": "width"
+                            },
+                            {
+                              "$ref": "shoulder.y"
+                            }
+                          ]
+                        },
+                        {
+                          "$op": "point",
+                          "args": [
+                            {
+                              "$ref": "width"
+                            },
+                            {
+                              "$ref": "d.armholeDepth"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                {
+                  "$if": {
+                    "$ref": "front"
+                  },
+                  "then": [
+                    {
+                      "name": "前丈の基準線",
+                      "path": {
+                        "$op": "line",
+                        "args": [
+                          {
+                            "$op": "point",
+                            "args": [
+                              {
+                                "$ref": "balanceHem.x"
+                              },
+                              {
+                                "$ref": "d.armholeDepth"
+                              }
+                            ]
+                          },
+                          {
+                            "$ref": "balanceHem"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "else": []
+                }
+              ]
+            },
+            "notches": [
+              {
+                "id": {
+                  "$op": "textJoin",
+                  "args": [
+                    {
+                      "$ref": "id"
+                    },
+                    "-armhole"
+                  ]
+                },
+                "edgeId": "armhole",
+                "point": {
+                  "$op": "get",
+                  "args": [
+                    {
+                      "$ref": "location"
+                    },
+                    "point"
+                  ]
+                },
+                "tangent": {
+                  "$op": "get",
+                  "args": [
+                    {
+                      "$ref": "location"
+                    },
+                    "tangent"
+                  ]
+                },
+                "count": {
+                  "$if": {
+                    "$ref": "front"
+                  },
+                  "then": 1,
+                  "else": 2
+                },
+                "distanceFromStart": {
+                  "$ref": "location.distance"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "old-sleeve": {
+      "parameters": [
+        "front",
+        "back",
+        "sleeveLength"
+      ],
+      "steps": [
+        {
+          "id": "frontAH",
+          "value": {
+            "$op": "length",
+            "args": [
+              {
+                "$op": "edge",
+                "args": [
+                  {
+                    "$ref": "front"
+                  },
+                  "armhole"
+                ]
+              },
+              0.0001
+            ]
+          }
+        },
+        {
+          "id": "backAH",
+          "value": {
+            "$op": "length",
+            "args": [
+              {
+                "$op": "edge",
+                "args": [
+                  {
+                    "$ref": "back"
+                  },
+                  "armhole"
+                ]
+              },
+              0.0001
+            ]
+          }
+        },
+        {
+          "id": "height",
+          "value": {
+            "$op": "add",
+            "args": [
+              {
+                "$op": "divide",
+                "args": [
+                  {
+                    "$op": "add",
+                    "args": [
+                      {
+                        "$ref": "frontAH"
+                      },
+                      {
+                        "$ref": "backAH"
+                      }
+                    ]
+                  },
+                  4
+                ]
+              },
+              25
+            ]
+          }
+        },
+        {
+          "id": "diagonals",
+          "require": {
+            "$op": "lt",
+            "args": [
+              {
+                "$ref": "height"
+              },
+              {
+                "$op": "min",
+                "args": [
+                  {
+                    "$ref": "frontAH"
+                  },
+                  {
+                    "$op": "add",
+                    "args": [
+                      {
+                        "$ref": "backAH"
+                      },
+                      10
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "message": "袖山の高さが作図斜線を超えています"
+        },
+        {
+          "id": "elbow",
+          "require": {
+            "$op": "gt",
+            "args": [
+              {
+                "$op": "add",
+                "args": [
+                  {
+                    "$op": "divide",
+                    "args": [
+                      {
+                        "$ref": "sleeveLength"
+                      },
+                      2
+                    ]
+                  },
+                  25
+                ]
+              },
+              {
+                "$ref": "height"
+              }
+            ]
+          },
+          "message": "袖丈が肘線の作図に対して短すぎます"
+        },
+        {
+          "id": "frontWidth",
+          "value": {
+            "$op": "sqrt",
+            "args": [
+              {
+                "$op": "subtract",
+                "args": [
+                  {
+                    "$op": "power",
+                    "args": [
+                      {
+                        "$ref": "frontAH"
+                      },
+                      2
+                    ]
+                  },
+                  {
+                    "$op": "power",
+                    "args": [
+                      {
+                        "$ref": "height"
+                      },
+                      2
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "backWidth",
+          "value": {
+            "$op": "sqrt",
+            "args": [
+              {
+                "$op": "subtract",
+                "args": [
+                  {
+                    "$op": "power",
+                    "args": [
+                      {
+                        "$op": "add",
+                        "args": [
+                          {
+                            "$ref": "backAH"
+                          },
+                          10
+                        ]
+                      },
+                      2
+                    ]
+                  },
+                  {
+                    "$op": "power",
+                    "args": [
+                      {
+                        "$ref": "height"
+                      },
+                      2
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "top",
+          "value": {
+            "$op": "point",
+            "args": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "id": "backUnderarm",
+          "value": {
+            "$op": "point",
+            "args": [
+              {
+                "$op": "multiply",
+                "args": [
+                  -1,
+                  {
+                    "$ref": "backWidth"
+                  }
+                ]
+              },
+              {
+                "$ref": "height"
+              }
+            ]
+          }
+        },
+        {
+          "id": "frontUnderarm",
+          "value": {
+            "$op": "point",
+            "args": [
+              {
+                "$ref": "frontWidth"
+              },
+              {
+                "$ref": "height"
+              }
+            ]
+          }
+        },
+        {
+          "id": "frontUnit",
+          "value": {
+            "$op": "normalize",
+            "args": [
+              {
+                "$op": "vectorTo",
+                "args": [
+                  {
+                    "$ref": "top"
+                  },
+                  {
+                    "$ref": "frontUnderarm"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "backUnit",
+          "value": {
+            "$op": "normalize",
+            "args": [
+              {
+                "$op": "vectorTo",
+                "args": [
+                  {
+                    "$ref": "top"
+                  },
+                  {
+                    "$ref": "backUnderarm"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "frontOut",
+          "value": {
+            "$op": "vector",
+            "args": [
+              {
+                "$ref": "frontUnit.y"
+              },
+              {
+                "$op": "multiply",
+                "args": [
+                  -1,
+                  {
+                    "$ref": "frontUnit.x"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "backOut",
+          "value": {
+            "$op": "vector",
+            "args": [
+              {
+                "$op": "multiply",
+                "args": [
+                  -1,
+                  {
+                    "$ref": "backUnit.y"
+                  }
+                ]
+              },
+              {
+                "$ref": "backUnit.x"
+              }
+            ]
+          }
+        },
+        {
+          "id": "quarter",
+          "value": {
+            "$op": "divide",
+            "args": [
+              {
+                "$ref": "frontAH"
+              },
+              4
+            ]
+          }
+        },
+        {
+          "id": "frontUpper",
+          "value": {
+            "$op": "translate",
+            "args": [
+              {
+                "$op": "translate",
+                "args": [
+                  {
+                    "$ref": "top"
+                  },
+                  {
+                    "$op": "scale",
+                    "args": [
+                      {
+                        "$ref": "frontUnit"
+                      },
+                      {
+                        "$ref": "quarter"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "$op": "scale",
+                "args": [
+                  {
+                    "$ref": "frontOut"
+                  },
+                  18
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "frontMid",
+          "value": {
+            "$op": "translate",
+            "args": [
+              {
+                "$ref": "top"
+              },
+              {
+                "$op": "scale",
+                "args": [
+                  {
+                    "$ref": "frontUnit"
+                  },
+                  {
+                    "$op": "add",
+                    "args": [
+                      {
+                        "$op": "multiply",
+                        "args": [
+                          2,
+                          {
+                            "$ref": "quarter"
+                          }
+                        ]
+                      },
+                      10
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "frontLower",
+          "value": {
+            "$op": "translate",
+            "args": [
+              {
+                "$op": "translate",
+                "args": [
+                  {
+                    "$ref": "top"
+                  },
+                  {
+                    "$op": "scale",
+                    "args": [
+                      {
+                        "$ref": "frontUnit"
+                      },
+                      {
+                        "$op": "multiply",
+                        "args": [
+                          3,
+                          {
+                            "$ref": "quarter"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "$op": "scale",
+                "args": [
+                  {
+                    "$ref": "frontOut"
+                  },
+                  -13
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "backUpper",
+          "value": {
+            "$op": "translate",
+            "args": [
+              {
+                "$op": "translate",
+                "args": [
+                  {
+                    "$ref": "top"
+                  },
+                  {
+                    "$op": "scale",
+                    "args": [
+                      {
+                        "$ref": "backUnit"
+                      },
+                      {
+                        "$ref": "quarter"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "$op": "scale",
+                "args": [
+                  {
+                    "$ref": "backOut"
+                  },
+                  15
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "backLower",
+          "value": {
+            "$op": "translate",
+            "args": [
+              {
+                "$ref": "backUnderarm"
+              },
+              {
+                "$op": "scale",
+                "args": [
+                  {
+                    "$ref": "backUnit"
+                  },
+                  {
+                    "$op": "multiply",
+                    "args": [
+                      -1,
+                      {
+                        "$ref": "quarter"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "backCap",
+          "value": {
+            "$op": "path",
+            "args": [
+              [
+                {
+                  "$op": "line",
+                  "args": [
+                    {
+                      "$ref": "backUnderarm"
+                    },
+                    {
+                      "$ref": "backLower"
+                    }
+                  ]
+                },
+                {
+                  "$op": "smooth",
+                  "args": [
+                    [
+                      {
+                        "$ref": "backLower"
+                      },
+                      {
+                        "$ref": "backUpper"
+                      },
+                      {
+                        "$ref": "top"
+                      }
+                    ],
+                    [
+                      {
+                        "$op": "scale",
+                        "args": [
+                          {
+                            "$ref": "backUnit"
+                          },
+                          -1
+                        ]
+                      },
+                      null,
+                      {
+                        "$op": "vector",
+                        "args": [
+                          1,
+                          0
+                        ]
+                      }
+                    ]
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "frontCap",
+          "value": {
+            "$op": "smooth",
+            "args": [
+              [
+                {
+                  "$ref": "top"
+                },
+                {
+                  "$ref": "frontUpper"
+                },
+                {
+                  "$ref": "frontMid"
+                },
+                {
+                  "$ref": "frontLower"
+                },
+                {
+                  "$ref": "frontUnderarm"
+                }
+              ],
+              [
+                {
+                  "$op": "vector",
+                  "args": [
+                    1,
+                    0
+                  ]
+                },
+                null,
+                null,
+                null,
+                {
+                  "$op": "vectorTo",
+                  "args": [
+                    {
+                      "$ref": "frontLower"
+                    },
+                    {
+                      "$ref": "frontUnderarm"
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "backCuff",
+          "value": {
+            "$op": "point",
+            "args": [
+              {
+                "$op": "multiply",
+                "args": [
+                  -1,
+                  {
+                    "$ref": "backWidth"
+                  }
+                ]
+              },
+              {
+                "$op": "subtract",
+                "args": [
+                  {
+                    "$ref": "sleeveLength"
+                  },
+                  10
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "frontCuff",
+          "value": {
+            "$op": "point",
+            "args": [
+              {
+                "$ref": "frontWidth"
+              },
+              {
+                "$op": "subtract",
+                "args": [
+                  {
+                    "$ref": "sleeveLength"
+                  },
+                  10
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "cuff",
+          "value": {
+            "$op": "smooth",
+            "args": [
+              [
+                {
+                  "$ref": "frontCuff"
+                },
+                {
+                  "$op": "point",
+                  "args": [
+                    {
+                      "$op": "divide",
+                      "args": [
+                        {
+                          "$ref": "frontWidth"
+                        },
+                        2
+                      ]
+                    },
+                    {
+                      "$op": "subtract",
+                      "args": [
+                        {
+                          "$ref": "sleeveLength"
+                        },
+                        15
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$op": "point",
+                  "args": [
+                    {
+                      "$op": "divide",
+                      "args": [
+                        {
+                          "$op": "multiply",
+                          "args": [
+                            -1,
+                            {
+                              "$ref": "backWidth"
+                            }
+                          ]
+                        },
+                        2
+                      ]
+                    },
+                    {
+                      "$ref": "sleeveLength"
+                    }
+                  ]
+                },
+                {
+                  "$ref": "backCuff"
+                }
+              ],
+              [
+                null,
+                {
+                  "$op": "vector",
+                  "args": [
+                    -1,
+                    0
+                  ]
+                },
+                {
+                  "$op": "vector",
+                  "args": [
+                    -1,
+                    0
+                  ]
+                },
+                null
+              ]
+            ]
+          }
+        },
+        {
+          "id": "backNotchDistance",
+          "value": {
+            "$op": "add",
+            "args": [
+              {
+                "$op": "subtract",
+                "args": [
+                  {
+                    "$ref": "backAH"
+                  },
+                  {
+                    "$ref": "back.notches.0.distanceFromStart"
+                  }
+                ]
+              },
+              2
+            ]
+          }
+        },
+        {
+          "id": "frontNotchDistance",
+          "value": {
+            "$op": "subtract",
+            "args": [
+              {
+                "$op": "subtract",
+                "args": [
+                  {
+                    "$op": "length",
+                    "args": [
+                      {
+                        "$ref": "frontCap"
+                      },
+                      0.0001
+                    ]
+                  },
+                  {
+                    "$op": "subtract",
+                    "args": [
+                      {
+                        "$ref": "frontAH"
+                      },
+                      {
+                        "$ref": "front.notches.0.distanceFromStart"
+                      }
+                    ]
+                  }
+                ]
+              },
+              2
+            ]
+          }
+        },
+        {
+          "id": "piece",
+          "value": {
+            "$op": "piece",
+            "args": [
+              {
+                "id": "sleeve",
+                "name": "袖",
+                "edges": [
+                  {
+                    "id": "cap-back",
+                    "role": "sew",
+                    "path": {
+                      "$ref": "backCap"
+                    }
+                  },
+                  {
+                    "id": "cap-front",
+                    "role": "sew",
+                    "path": {
+                      "$ref": "frontCap"
+                    }
+                  },
+                  {
+                    "id": "underarm-front",
+                    "role": "sew",
+                    "path": {
+                      "$op": "line",
+                      "args": [
+                        {
+                          "$ref": "frontUnderarm"
+                        },
+                        {
+                          "$ref": "frontCuff"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "cuff",
+                    "role": "open",
+                    "path": {
+                      "$ref": "cuff"
+                    }
+                  },
+                  {
+                    "id": "underarm-back",
+                    "role": "sew",
+                    "path": {
+                      "$op": "line",
+                      "args": [
+                        {
+                          "$ref": "backCuff"
+                        },
+                        {
+                          "$ref": "backUnderarm"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "cut": {
+                  "quantity": 2,
+                  "onFold": false,
+                  "mirroredPair": true,
+                  "seamAllowance": 0
+                },
+                "grainline": {
+                  "$op": "line",
+                  "args": [
+                    {
+                      "$op": "point",
+                      "args": [
+                        0,
+                        {
+                          "$op": "add",
+                          "args": [
+                            {
+                              "$ref": "height"
+                            },
+                            25
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "$op": "point",
+                      "args": [
+                        0,
+                        {
+                          "$op": "subtract",
+                          "args": [
+                            {
+                              "$ref": "sleeveLength"
+                            },
+                            40
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "landmarks": {
+                  "top": {
+                    "$ref": "top"
+                  },
+                  "backUnderarm": {
+                    "$ref": "backUnderarm"
+                  },
+                  "frontUnderarm": {
+                    "$ref": "frontUnderarm"
+                  },
+                  "backUpper": {
+                    "$ref": "backUpper"
+                  },
+                  "backLower": {
+                    "$ref": "backLower"
+                  },
+                  "frontUpper": {
+                    "$ref": "frontUpper"
+                  },
+                  "frontMid": {
+                    "$ref": "frontMid"
+                  },
+                  "frontLower": {
+                    "$ref": "frontLower"
+                  },
+                  "backCuff": {
+                    "$ref": "backCuff"
+                  },
+                  "frontCuff": {
+                    "$ref": "frontCuff"
+                  }
+                },
+                "guides": [
+                  {
+                    "name": "袖幅線",
+                    "path": {
+                      "$op": "line",
+                      "args": [
+                        {
+                          "$ref": "backUnderarm"
+                        },
+                        {
+                          "$ref": "frontUnderarm"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "肘線",
+                    "path": {
+                      "$op": "line",
+                      "args": [
+                        {
+                          "$op": "point",
+                          "args": [
+                            {
+                              "$op": "multiply",
+                              "args": [
+                                -1,
+                                {
+                                  "$ref": "backWidth"
+                                }
+                              ]
+                            },
+                            {
+                              "$op": "add",
+                              "args": [
+                                {
+                                  "$op": "divide",
+                                  "args": [
+                                    {
+                                      "$ref": "sleeveLength"
+                                    },
+                                    2
+                                  ]
+                                },
+                                25
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "$op": "point",
+                          "args": [
+                            {
+                              "$ref": "frontWidth"
+                            },
+                            {
+                              "$op": "add",
+                              "args": [
+                                {
+                                  "$op": "divide",
+                                  "args": [
+                                    {
+                                      "$ref": "sleeveLength"
+                                    },
+                                    2
+                                  ]
+                                },
+                                25
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "袖中心線",
+                    "path": {
+                      "$op": "line",
+                      "args": [
+                        {
+                          "$ref": "top"
+                        },
+                        {
+                          "$op": "point",
+                          "args": [
+                            0,
+                            {
+                              "$op": "subtract",
+                              "args": [
+                                {
+                                  "$ref": "sleeveLength"
+                                },
+                                20
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "notches": [
+                  {
+                    "id": "sleeve-back",
+                    "edgeId": "cap-back",
+                    "point": {
+                      "$op": "get",
+                      "args": [
+                        {
+                          "$op": "atLength",
+                          "args": [
+                            {
+                              "$ref": "backCap"
+                            },
+                            {
+                              "$ref": "backNotchDistance"
+                            }
+                          ]
+                        },
+                        "point"
+                      ]
+                    },
+                    "tangent": {
+                      "$op": "get",
+                      "args": [
+                        {
+                          "$op": "atLength",
+                          "args": [
+                            {
+                              "$ref": "backCap"
+                            },
+                            {
+                              "$ref": "backNotchDistance"
+                            }
+                          ]
+                        },
+                        "tangent"
+                      ]
+                    },
+                    "count": 2,
+                    "distanceFromStart": {
+                      "$ref": "backNotchDistance"
+                    }
+                  },
+                  {
+                    "id": "sleeve-front",
+                    "edgeId": "cap-front",
+                    "point": {
+                      "$op": "get",
+                      "args": [
+                        {
+                          "$op": "atLength",
+                          "args": [
+                            {
+                              "$ref": "frontCap"
+                            },
+                            {
+                              "$ref": "frontNotchDistance"
+                            }
+                          ]
+                        },
+                        "point"
+                      ]
+                    },
+                    "tangent": {
+                      "$op": "get",
+                      "args": [
+                        {
+                          "$op": "atLength",
+                          "args": [
+                            {
+                              "$ref": "frontCap"
+                            },
+                            {
+                              "$ref": "frontNotchDistance"
+                            }
+                          ]
+                        },
+                        "tangent"
+                      ]
+                    },
+                    "count": 1,
+                    "distanceFromStart": {
+                      "$ref": "frontNotchDistance"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "result": {
+        "piece": {
+          "$ref": "piece"
+        },
+        "dimensions": {
+          "capHeight": {
+            "$ref": "height"
+          },
+          "frontWidth": {
+            "$ref": "frontWidth"
+          },
+          "backWidth": {
+            "$ref": "backWidth"
+          },
+          "frontArmhole": {
+            "$ref": "frontAH"
+          },
+          "backArmhole": {
+            "$ref": "backAH"
+          },
+          "frontCapLength": {
+            "$op": "length",
+            "args": [
+              {
+                "$ref": "frontCap"
+              },
+              0.0001
+            ]
+          },
+          "backCapLength": {
+            "$op": "length",
+            "args": [
+              {
+                "$ref": "backCap"
+              },
+              0.0001
+            ]
+          },
+          "sleeveLength": {
+            "$ref": "sleeveLength"
+          }
+        }
+      }
+    }
+  },
+  "steps": [
+    {
+      "id": "B",
+      "value": {
+        "$ref": "body.bust"
+      }
+    },
+    {
+      "id": "halfBustFrame",
+      "value": {
+        "$op": "add",
+        "args": [
+          {
+            "$op": "divide",
+            "args": [
+              {
+                "$ref": "B"
+              },
+              2
+            ]
+          },
+          50
+        ]
+      }
+    },
+    {
+      "id": "armholeDepth",
+      "value": {
+        "$op": "add",
+        "args": [
+          {
+            "$op": "divide",
+            "args": [
+              {
+                "$ref": "B"
+              },
+              6
+            ]
+          },
+          70
+        ]
+      }
+    },
+    {
+      "id": "backWidth",
+      "value": {
+        "$op": "add",
+        "args": [
+          {
+            "$op": "divide",
+            "args": [
+              {
+                "$ref": "B"
+              },
+              6
+            ]
+          },
+          45
+        ]
+      }
+    },
+    {
+      "id": "chestWidth",
+      "value": {
+        "$op": "add",
+        "args": [
+          {
+            "$op": "divide",
+            "args": [
+              {
+                "$ref": "B"
+              },
+              6
+            ]
+          },
+          30
+        ]
+      }
+    },
+    {
+      "id": "backNeckWidth",
+      "value": {
+        "$op": "add",
+        "args": [
+          {
+            "$op": "divide",
+            "args": [
+              {
+                "$ref": "B"
+              },
+              20
+            ]
+          },
+          29
+        ]
+      }
+    },
+    {
+      "id": "backNeckRise",
+      "value": {
+        "$op": "divide",
+        "args": [
+          {
+            "$op": "add",
+            "args": [
+              {
+                "$op": "divide",
+                "args": [
+                  {
+                    "$ref": "B"
+                  },
+                  20
+                ]
+              },
+              29
+            ]
+          },
+          3
+        ]
+      }
+    },
+    {
+      "id": "frontNeckWidth",
+      "value": {
+        "$op": "add",
+        "args": [
+          {
+            "$op": "divide",
+            "args": [
+              {
+                "$ref": "B"
+              },
+              20
+            ]
+          },
+          27
+        ]
+      }
+    },
+    {
+      "id": "frontNeckDepth",
+      "value": {
+        "$op": "add",
+        "args": [
+          {
+            "$op": "divide",
+            "args": [
+              {
+                "$ref": "B"
+              },
+              20
+            ]
+          },
+          39
+        ]
+      }
+    },
+    {
+      "id": "bustEase",
+      "value": 100
+    },
+    {
+      "id": "shoulderEase",
+      "value": 18
+    },
+    {
+      "id": "sideX",
+      "value": {
+        "$op": "divide",
+        "args": [
+          {
+            "$ref": "halfBustFrame"
+          },
+          2
+        ]
+      }
+    },
+    {
+      "id": "armholeDiagonal",
+      "value": {
+        "$op": "divide",
+        "args": [
+          {
+            "$op": "subtract",
+            "args": [
+              {
+                "$ref": "sideX"
+              },
+              {
+                "$ref": "backWidth"
+              }
+            ]
+          },
+          2
+        ]
+      }
+    },
+    {
+      "id": "backNeck",
+      "value": {
+        "$op": "point",
+        "args": [
+          {
+            "$ref": "backNeckWidth"
+          },
+          {
+            "$op": "multiply",
+            "args": [
+              -1,
+              {
+                "$ref": "backNeckRise"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "backShoulder",
+      "value": {
+        "$op": "point",
+        "args": [
+          {
+            "$op": "add",
+            "args": [
+              {
+                "$ref": "backWidth"
+              },
+              20
+            ]
+          },
+          {
+            "$ref": "backNeckRise"
+          }
+        ]
+      }
+    },
+    {
+      "id": "backShoulderLength",
+      "value": {
+        "$op": "distance",
+        "args": [
+          {
+            "$ref": "backNeck"
+          },
+          {
+            "$ref": "backShoulder"
+          }
+        ]
+      }
+    },
+    {
+      "id": "frontShoulderLength",
+      "value": {
+        "$op": "subtract",
+        "args": [
+          {
+            "$ref": "backShoulderLength"
+          },
+          {
+            "$ref": "shoulderEase"
+          }
+        ]
+      }
+    },
+    {
+      "id": "frontNeck",
+      "value": {
+        "$op": "point",
+        "args": [
+          {
+            "$ref": "frontNeckWidth"
+          },
+          5
+        ]
+      }
+    },
+    {
+      "id": "shoulderDrop",
+      "value": {
+        "$op": "subtract",
+        "args": [
+          {
+            "$op": "multiply",
+            "args": [
+              2,
+              {
+                "$ref": "backNeckRise"
+              }
+            ]
+          },
+          {
+            "$ref": "frontNeck.y"
+          }
+        ]
+      }
+    },
+    {
+      "id": "shoulderReach",
+      "require": {
+        "$op": "gt",
+        "args": [
+          {
+            "$ref": "frontShoulderLength"
+          },
+          {
+            "$ref": "shoulderDrop"
+          }
+        ]
+      },
+      "message": "前肩が作図線に届きません"
+    },
+    {
+      "id": "frontShoulder",
+      "value": {
+        "$op": "point",
+        "args": [
+          {
+            "$op": "add",
+            "args": [
+              {
+                "$ref": "frontNeck.x"
+              },
+              {
+                "$op": "sqrt",
+                "args": [
+                  {
+                    "$op": "subtract",
+                    "args": [
+                      {
+                        "$op": "power",
+                        "args": [
+                          {
+                            "$ref": "frontShoulderLength"
+                          },
+                          2
+                        ]
+                      },
+                      {
+                        "$op": "power",
+                        "args": [
+                          {
+                            "$ref": "shoulderDrop"
+                          },
+                          2
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "$op": "multiply",
+            "args": [
+              2,
+              {
+                "$ref": "backNeckRise"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "dimensions",
+      "value": {
+        "halfBustFrame": {
+          "$ref": "halfBustFrame"
+        },
+        "armholeDepth": {
+          "$ref": "armholeDepth"
+        },
+        "backWidth": {
+          "$ref": "backWidth"
+        },
+        "chestWidth": {
+          "$ref": "chestWidth"
+        },
+        "backNeckWidth": {
+          "$ref": "backNeckWidth"
+        },
+        "backNeckRise": {
+          "$ref": "backNeckRise"
+        },
+        "frontNeckWidth": {
+          "$ref": "frontNeckWidth"
+        },
+        "frontNeckDepth": {
+          "$ref": "frontNeckDepth"
+        },
+        "bustEase": {
+          "$ref": "bustEase"
+        },
+        "shoulderEase": {
+          "$ref": "shoulderEase"
+        },
+        "sideX": {
+          "$ref": "sideX"
+        },
+        "armholeDiagonal": {
+          "$ref": "armholeDiagonal"
+        },
+        "backShoulderLength": {
+          "$ref": "backShoulderLength"
+        },
+        "frontShoulderLength": {
+          "$ref": "frontShoulderLength"
+        }
+      }
+    },
+    {
+      "id": "front",
+      "value": {
+        "$call": "old-bodice",
+        "args": {
+          "front": true,
+          "d": {
+            "$ref": "dimensions"
+          },
+          "frontNeck": {
+            "$ref": "frontNeck"
+          },
+          "backNeck": {
+            "$ref": "backNeck"
+          },
+          "frontShoulder": {
+            "$ref": "frontShoulder"
+          },
+          "backShoulder": {
+            "$ref": "backShoulder"
+          }
+        }
+      }
+    },
+    {
+      "id": "back",
+      "value": {
+        "$call": "old-bodice",
+        "args": {
+          "front": false,
+          "d": {
+            "$ref": "dimensions"
+          },
+          "frontNeck": {
+            "$ref": "frontNeck"
+          },
+          "backNeck": {
+            "$ref": "backNeck"
+          },
+          "frontShoulder": {
+            "$ref": "frontShoulder"
+          },
+          "backShoulder": {
+            "$ref": "backShoulder"
+          }
+        }
+      }
+    },
+    {
+      "id": "sleeve",
+      "value": {
+        "$call": "old-sleeve",
+        "args": {
+          "front": {
+            "$ref": "front"
+          },
+          "back": {
+            "$ref": "back"
+          },
+          "sleeveLength": {
+            "$ref": "design.sleeveLength"
+          }
+        }
+      }
+    }
+  ],
+  "result": {
+    "version": "0.1.0",
+    "unit": "mm",
+    "method": {
+      "$ref": "method"
+    },
+    "body": {
+      "$ref": "body"
+    },
+    "design": {
+      "$ref": "design"
+    },
+    "pieces": [
+      {
+        "$ref": "front"
+      },
+      {
+        "$ref": "back"
+      },
+      {
+        "$ref": "sleeve.piece"
+      }
+    ],
+    "dimensions": {
+      "bodice": {
+        "$ref": "dimensions"
+      },
+      "sleeve": {
+        "$ref": "sleeve.dimensions"
+      }
+    },
+    "relations": [
+      {
+        "id": "side-seam",
+        "kind": "sew",
+        "a": {
+          "piece": "front",
+          "edge": "side"
+        },
+        "b": {
+          "piece": "back",
+          "edge": "side"
+        },
+        "ease": {
+          "min": 0,
+          "max": 0
+        },
+        "note": "前後の脇線",
+        "direction": "same"
+      },
+      {
+        "id": "shoulder-seam",
+        "kind": "sew",
+        "a": {
+          "piece": "back",
+          "edge": "shoulder"
+        },
+        "b": {
+          "piece": "front",
+          "edge": "shoulder"
+        },
+        "ease": {
+          "min": 18,
+          "max": 18
+        },
+        "note": "後肩のいせ分18 mm",
+        "direction": "same"
+      },
+      {
+        "id": "sleeve-underarm",
+        "kind": "sew",
+        "a": {
+          "piece": "sleeve",
+          "edge": "underarm-front"
+        },
+        "b": {
+          "piece": "sleeve",
+          "edge": "underarm-back"
+        },
+        "ease": {
+          "min": 0,
+          "max": 0
+        },
+        "note": "袖下線",
+        "direction": "opposite"
+      },
+      {
+        "id": "back-sleeve-cap",
+        "kind": "sew",
+        "a": {
+          "piece": "sleeve",
+          "edge": "cap-back"
+        },
+        "b": {
+          "piece": "back",
+          "edge": "armhole"
+        },
+        "ease": {
+          "min": 2,
+          "max": 30
+        },
+        "note": "後袖山のいせ量を確認",
+        "direction": "opposite"
+      },
+      {
+        "id": "front-sleeve-cap",
+        "kind": "sew",
+        "a": {
+          "piece": "sleeve",
+          "edge": "cap-front"
+        },
+        "b": {
+          "piece": "front",
+          "edge": "armhole"
+        },
+        "ease": {
+          "min": 2,
+          "max": 30
+        },
+        "note": "前袖山のいせ量を確認",
+        "direction": "same"
+      }
+    ],
+    "notchPairs": [
+      {
+        "a": {
+          "piece": "sleeve",
+          "notch": "sleeve-front",
+          "fromEnd": true
+        },
+        "b": {
+          "piece": "front",
+          "notch": "front-armhole",
+          "fromEnd": true
+        },
+        "lowerEase": 2
+      },
+      {
+        "a": {
+          "piece": "sleeve",
+          "notch": "sleeve-back",
+          "fromEnd": false
+        },
+        "b": {
+          "piece": "back",
+          "notch": "back-armhole",
+          "fromEnd": true
+        },
+        "lowerEase": 2
+      }
+    ],
+    "notices": [
+      "旧文化式のダーツなし原型です。新文化式ではありません。",
+      "襟ぐり・袖ぐり・袖山・袖口の手描きカーブは案内点を通るベジェ曲線で近似しています。",
+      "ウエスト絞り・胸ダーツ・肩ダーツ・縫い代・開きは未追加です。試着補正と縫製設計が必要です。",
+      "数値検証は着用時のフィットを保証しません。対応寸法範囲は計算のテスト範囲です。"
+    ]
+  }
+}
