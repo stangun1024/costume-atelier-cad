@@ -6,9 +6,9 @@ Node.js 22以上。外部パッケージのインストールは不要です。
 ## AIの入口
 
 1. アプリから届く `aicad-loop-packet` の `toolGuide` を確認します。`commit` は今回のアプリと同じ公開版です。mainの最新版で置き換えないでください。
-2. `toolGuide.indexUrl` の索引で全操作の概要を読み、使用する操作のJSONを取得します。各JSONには契約・実行命令・前後のSVGと意味付きデータ・準備状態が含まれます。全件は `toolGuide.bundleUrl` です。
+2. Web閲覧では[操作索引](guides/README.md)から操作別のMarkdown教材を読みます。各教材には契約・実行命令・準備手順と、小分けにした実行前後の意味付きデータ・SVGへのリンクがあります。依頼の `indexReadableUrl` と `readableToolUrls` は同じcommitの完全URLです。取得できない場合は `indexPageUrl`・`readableToolPageUrls` のGitHub表示ページを試し、JSONの `indexUrl`・`toolUrls` も使えます。全教材JSONは大きいため、Web閲覧では最初に全件取得しません。
 3. 教材中の固定ID・採寸・数値を今回の指示へ流用しません。今回の型紙・採寸・解釈・ユーザー回答は依頼JSONが正本です。適用可否は今回のgeometryのoperations/targetsで確認します。
-4. コードを実行できるAIは以下の試行手順を使えます。取得や実行ができない場合はその旨を伝え、画面の「教材を添付する依頼に切り替え」を使ってください。実行したと装わないでください。
+4. コードを実行できるAIは以下の試行手順を使えます。Web閲覧のZIPエラーだけで教材も取得不能とは判断しません。通常のHTTPダウンロードが可能なら `downloadUrl`（codeload）または `archiveUrl` から同じcommitのZIPを取得・展開し、git cloneの代わりに使えます。教材を読めてもコードを取得・実行できない場合は、実行未確認としてJSONの相談を続けます。必要な教材を同じ版の代替URLでも取得できない場合に、画面の「AIに渡す一式を保存（ZIP）」または「教材を添付する依頼に切り替え」を使います。未取得・未実行を成功扱いにしません。
 
 ## 回答JSONの文法チェック
 

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="977.1712715766091mm" height="700mm" viewBox="0 0 977.1712715766091 700" role="img" aria-labelledby="pattern-title">
+  <title id="pattern-title">旧文化式・婦人原型（ダーツなし） / 前身頃・後身頃・袖</title>
+  <metadata>{&quot;format&quot;:&quot;aicad-pattern-svg&quot;,&quot;version&quot;:&quot;0.1.0&quot;,&quot;method&quot;:{&quot;id&quot;:&quot;bunka-old&quot;,&quot;version&quot;:&quot;0.1.0&quot;},&quot;request&quot;:{&quot;method&quot;:&quot;bunka-old&quot;,&quot;body&quot;:{&quot;unit&quot;:&quot;mm&quot;,&quot;bust&quot;:820,&quot;backLength&quot;:375,&quot;armLength&quot;:520},&quot;design&quot;:{&quot;sleeveLength&quot;:520}},&quot;operationDocument&quot;:{&quot;format&quot;:&quot;aicad-pattern-operations&quot;,&quot;version&quot;:&quot;0.6.0&quot;,&quot;engineVersion&quot;:&quot;0.6.0&quot;,&quot;methodVersion&quot;:&quot;0.1.0&quot;,&quot;base&quot;:{&quot;method&quot;:&quot;bunka-old&quot;,&quot;body&quot;:{&quot;unit&quot;:&quot;mm&quot;,&quot;bust&quot;:820,&quot;backLength&quot;:375,&quot;armLength&quot;:520},&quot;design&quot;:{&quot;sleeveLength&quot;:520}},&quot;operations&quot;:[{&quot;id&quot;:&quot;sample-dart&quot;,&quot;type&quot;:&quot;ADD_DART&quot;,&quot;widthMm&quot;:20,&quot;depthMm&quot;:80,&quot;refs&quot;:{&quot;piece&quot;:&quot;piece-48479248319cb11a&quot;,&quot;edge&quot;:&quot;edge-96fa97ab8363977f&quot;},&quot;positions&quot;:{&quot;distanceMm&quot;:{&quot;basis&quot;:&quot;arc_length_from_start&quot;,&quot;unit&quot;:&quot;mm&quot;,&quot;value&quot;:80}},&quot;edge&quot;:&quot;waist&quot;,&quot;distanceMm&quot;:80,&quot;piece&quot;:&quot;back&quot;,&quot;engineVersion&quot;:&quot;0.6.0&quot;},{&quot;type&quot;:&quot;PIVOT_DART&quot;,&quot;id&quot;:&quot;example-pivot-dart&quot;,&quot;refs&quot;:{&quot;piece&quot;:&quot;piece-48479248319cb11a&quot;,&quot;dart&quot;:&quot;feature-fc21fad297fd8cd8&quot;,&quot;targetEdge&quot;:&quot;edge-b96527b841baa886&quot;},&quot;positions&quot;:{&quot;distanceMm&quot;:{&quot;basis&quot;:&quot;arc_length_from_start&quot;,&quot;unit&quot;:&quot;mm&quot;,&quot;value&quot;:20}},&quot;dart&quot;:&quot;dart-1&quot;,&quot;targetEdge&quot;:&quot;neckline&quot;,&quot;distanceMm&quot;:20,&quot;piece&quot;:&quot;back&quot;,&quot;engineVersion&quot;:&quot;0.6.0&quot;}]},&quot;seamAllowanceMm&quot;:{&quot;front&quot;:0,&quot;back&quot;:0,&quot;sleeve&quot;:0}}</metadata>
+  <defs><marker id="grain-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#47696a"/></marker></defs>
+  <style>text{font-family:"Yu Gothic","Meiryo",sans-serif;fill:#18333e;font-size:5px} .outline{fill:none;stroke:#18333e;stroke-width:0.45;stroke-linejoin:round} .construction{fill:none;stroke:#849a9e;stroke-width:0.25;stroke-dasharray:3 2} .grain{fill:none;stroke:#47696a;stroke-width:0.4} .notch{fill:none;stroke:#bc542e;stroke-width:0.65} .muted{fill:#596d74}</style>
+<text x="20" y="20" font-weight="700" style="font-size:10px">旧文化式・婦人原型（ダーツなし）</text>
+<text x="20" y="33" >バスト 820 mm ／ 背丈 375 mm ／ 袖丈 520 mm</text>
+<text x="20" y="44" class="muted">縫い線・実寸 1:1 ／ 縫い代なし ／ ダーツあり ／ カーブは数値近似</text>
+<text x="20" y="55" class="muted">原型の試作です。着用確認・補正後に、ダーツや開きなどの縫製設計を行ってください。</text>
+<line x1="20" y1="67" x2="38" y2="67" class="outline"/>
+<text x="42" y="69" >輪郭</text>
+<line x1="73" y1="67" x2="91" y2="67" class="construction"/>
+<text x="95" y="69" >補助線</text>
+<line x1="138" y1="64" x2="138" y2="70" class="notch"/>
+<text x="145" y="69" >前合印：1本 ／ 後合印：2本</text>
+<g id="piece-front" data-piece-id="front" data-entity-id="piece-e5e370c65b8097d8">
+<text x="20" y="92" font-weight="700" style="font-size:8px">前身頃</text>
+<text x="20" y="103" class="muted">1枚・「わ」の辺で折る</text>
+<path id="front-boundary" class="outline" fill-rule="evenodd" d="M 20 190 C 37.80921815264718 190 55.96064497167966 179.57354365536696 67.92289897703824 166.37988114945676 C 80.27374238339452 152.75762739244615 81.70414460909015 132.27632296426168 88 115 L 202.33661440459792 156.66666666666666 C 193.03259910944408 182.19761728786233 186.66666666666666 209.4932579692951 186.66666666666666 236.66666666666666 C 186.66666666666666 258.3970385436037 190.26697473916815 282.5406454538779 203.75508054534157 299.57825278799174 C 213.9555433152645 312.4630478657891 233.56627294502508 316.66666666666663 250 316.66666666666663 L 270 485 L 110.33333333333333 519 L 20 519 L 20 190 Z"/>
+<g fill="none" stroke="none" id="edges-front">
+<path id="front-neckline" data-role="open" data-entity-id="edge-4a230df4ae28d870" d="M 20 190 C 37.80921815264718 190 55.96064497167966 179.57354365536696 67.92289897703824 166.37988114945676 C 80.27374238339452 152.75762739244615 81.70414460909015 132.27632296426168 88 115"><title>前身頃・襟ぐり</title></path>
+<path id="front-shoulder" data-role="sew" data-entity-id="edge-9729acc1b2ea0a47" d="M 88 115 L 202.33661440459792 156.66666666666666"><title>前身頃・肩線</title></path>
+<path id="front-armhole" data-role="sew" data-entity-id="edge-a912108f6febe431" d="M 202.33661440459792 156.66666666666666 C 193.03259910944408 182.19761728786233 186.66666666666666 209.4932579692951 186.66666666666666 236.66666666666666 C 186.66666666666666 258.3970385436037 190.26697473916815 282.5406454538779 203.75508054534157 299.57825278799174 C 213.9555433152645 312.4630478657891 233.56627294502508 316.66666666666663 250 316.66666666666663"><title>前身頃・袖ぐり</title></path>
+<path id="front-side" data-role="sew" data-entity-id="edge-aa82237a3ac98d1e" d="M 250 316.66666666666663 L 270 485"><title>前身頃・脇線</title></path>
+<path id="front-waist" data-role="open" data-entity-id="edge-c8921b47bf470029" d="M 270 485 L 110.33333333333333 519 L 20 519"><title>前身頃・ウエスト線</title></path>
+<path id="front-center" data-role="fold" data-entity-id="edge-05c5dc60097ec0aa" d="M 20 519 L 20 190"><title>前身頃・中心線（わ）</title></path>
+</g>
+<g class="construction" id="guides-front">
+<path d="M 20 316.66666666666663 L 250 316.66666666666663"><title>バスト線</title></path>
+<path d="M 186.66666666666666 156.66666666666666 L 186.66666666666666 316.66666666666663"><title>胸幅線</title></path>
+<path d="M 110.33333333333333 316.66666666666663 L 110.33333333333333 519"><title>前丈の基準線</title></path>
+</g>
+<path class="grain" d="M 65 341.66666666666663 L 65 460" marker-start="url(#grain-arrow)" marker-end="url(#grain-arrow)"/>
+<text x="72" y="400.8333333333333" >地の目</text>
+<path class="notch" data-notch-id="front-armhole" d="M 191.48463696952305 261.18762103815874 L 185.56162581443712 262.14571229515224"/>
+</g>
+<g id="piece-back" data-piece-id="back" data-entity-id="piece-48479248319cb11a">
+<text x="300" y="92" font-weight="700" style="font-size:8px">後身頃</text>
+<text x="300" y="103" class="muted">1枚・「わ」の辺で折る</text>
+<path id="back-boundary" class="outline" fill-rule="evenodd" d="M 508.61538461694755 513.3333333333334 L 392.30769231062163 542.8717948724457 L 300 179.41025641165118 C 307.1716288360469 177.58889035799044 313.5592713115251 175.7798680116054 319.2413290324113 173.96498941777097 L 498.61538461662013 433.33333333333337 L 388.60504617044575 137.7919401627887 C 422.0797137659102 135.76581781682688 433.9828971295136 128.07023255526855 438.61538461745687 115.00000000000001 L 570.2820512841236 161.66666666666669 C 559.8342842146354 191.14429518415102 550.2820512841236 222.05896012213873 550.2820512841236 253.33333333333334 C 550.2820512841236 277.99192464296164 559.4050061580806 302.5638242813999 570.9059990687311 324.3760522153924 C 576.2762510520109 334.5610128733367 587.1013484021328 345 598.6153846174568 345 L 578.6153846174568 513.3333333333334 L 508.61538461694755 513.3333333333334 Z"/>
+<path data-dart-id="dart-1" class="construction" d="M 498.61538461662013 433.33333333333337 L 353.9231876014285 155.87846479027985"><title>ダーツ中心線</title></path>
+<g fill="none" stroke="none" id="edges-back">
+<path id="back-dart-1-remainder" data-role="open" data-entity-id="edge-426dd28264e1aab8" d="M 508.61538461694755 513.3333333333334 L 392.30769231062163 542.8717948724457"><title>後身頃・ウエスト線・分割区間 2</title></path>
+<path id="back-center" data-role="fold" data-entity-id="edge-e47676fc9f822084" d="M 392.30769231062163 542.8717948724457 L 300 179.41025641165118"><title>後身頃・中心線（わ）</title></path>
+<path id="back-neckline" data-role="open" data-entity-id="edge-a623de78c11fc92c" d="M 300 179.41025641165118 C 307.1716288360469 177.58889035799044 313.5592713115251 175.7798680116054 319.2413290324113 173.96498941777097"><title>後身頃・襟ぐり・分割区間 1</title></path>
+<path id="back-dart-1-in" data-role="sew" data-entity-id="edge-29d5b17de99fe361" d="M 319.2413290324113 173.96498941777097 L 498.61538461662013 433.33333333333337"><title>後身頃・ダーツ 1・入り側の脚</title></path>
+<path id="back-dart-1-out" data-role="sew" data-entity-id="edge-af8d730602dcb75c" d="M 498.61538461662013 433.33333333333337 L 388.60504617044575 137.7919401627887"><title>後身頃・ダーツ 1・戻り側の脚</title></path>
+<path id="back-pivot-1-remainder" data-role="open" data-entity-id="edge-7f381ea7b4d01ded" d="M 388.60504617044575 137.7919401627887 C 422.0797137659102 135.76581781682688 433.9828971295136 128.07023255526855 438.61538461745687 115.00000000000001"><title>後身頃・襟ぐり・分割区間 2</title></path>
+<path id="back-shoulder" data-role="sew" data-entity-id="edge-705bfdf516b41209" d="M 438.61538461745687 115.00000000000001 L 570.2820512841236 161.66666666666669"><title>後身頃・肩線</title></path>
+<path id="back-armhole" data-role="sew" data-entity-id="edge-71a471734fa8b917" d="M 570.2820512841236 161.66666666666669 C 559.8342842146354 191.14429518415102 550.2820512841236 222.05896012213873 550.2820512841236 253.33333333333334 C 550.2820512841236 277.99192464296164 559.4050061580806 302.5638242813999 570.9059990687311 324.3760522153924 C 576.2762510520109 334.5610128733367 587.1013484021328 345 598.6153846174568 345"><title>後身頃・袖ぐり</title></path>
+<path id="back-side" data-role="sew" data-entity-id="edge-d8da42565d313b48" d="M 598.6153846174568 345 L 578.6153846174568 513.3333333333334"><title>後身頃・脇線</title></path>
+<path id="back-waist" data-role="open" data-entity-id="edge-bdfaf24328f45bd5" d="M 578.6153846174568 513.3333333333334 L 508.61538461694755 513.3333333333334"><title>後身頃・ウエスト線・分割区間 1</title></path>
+</g>
+<g class="construction" id="guides-back">
+</g>
+<path class="grain" d="M 400.64102564274606 392.87179487237853 L 429.7692307718755 507.56410256445145" marker-start="url(#grain-arrow)" marker-end="url(#grain-arrow)"/>
+<text x="407.64102564274606" y="450.21794871841496" >地の目</text>
+<path class="notch" data-notch-id="back-armhole" d="M 555.6694513068717 275.72794228957366 L 549.813492976105 277.03475215651076"/>
+<path class="notch" data-notch-id="back-armhole" d="M 556.5406578848297 279.6319145100848 L 550.684699554063 280.9387243770219"/>
+</g>
+<g id="piece-sleeve" data-piece-id="sleeve" data-entity-id="piece-a525f9ffe76e2ded">
+<text x="628.6153846174568" y="92" font-weight="700" style="font-size:8px">袖</text>
+<text x="628.6153846174568" y="103" class="muted">2枚・左右対称に裁断</text>
+<path id="sleeve-boundary" class="outline" fill-rule="evenodd" d="M 628.6153846174568 241.0892649183647 L 668.9720093707904 211.893050487808 C 700.4254138069624 189.13791806277413 722.3007173337776 154.79827534938613 753.7541217699496 132.04314292435228 C 767.8030612653797 121.8793630607597 785.5629644063168 115 802.9029506249337 115 C 820.5572736666655 115 839.1919122827022 121.41284993106946 852.8612599020779 132.58531867000505 C 868.9817876189619 145.76122852226013 876.3023052777139 167.0023958682036 887.7798875227637 184.37309303652975 C 895.4755335528022 196.0200352102689 899.5684810949085 210.7981941285025 910.3771925881387 219.6325580373635 C 923.6635104027448 230.49196220006417 941.573245247119 233.9370292913643 957.1712715766091 241.0892649183647 L 957.1712715766091 625 C 931.4598847513299 623.3333333333333 905.8024597352635 620 880.0371111007714 620 C 825.0499987582933 620 770.7462799636735 635 715.7591676211953 635 C 686.5206106644745 635 657.6633122853697 628.3333333333334 628.6153846174568 625 L 628.6153846174568 241.0892649183647 Z"/>
+<g fill="none" stroke="none" id="edges-sleeve">
+<path id="sleeve-cap-back" data-role="sew" data-entity-id="edge-82fc646c2a1e299c" d="M 628.6153846174568 241.0892649183647 L 668.9720093707904 211.893050487808 C 700.4254138069624 189.13791806277413 722.3007173337776 154.79827534938613 753.7541217699496 132.04314292435228 C 767.8030612653797 121.8793630607597 785.5629644063168 115 802.9029506249337 115"><title>袖・後袖山</title></path>
+<path id="sleeve-cap-front" data-role="sew" data-entity-id="edge-71d188b2f5d3c3f6" d="M 802.9029506249337 115 C 820.5572736666655 115 839.1919122827022 121.41284993106946 852.8612599020779 132.58531867000505 C 868.9817876189619 145.76122852226013 876.3023052777139 167.0023958682036 887.7798875227637 184.37309303652975 C 895.4755335528022 196.0200352102689 899.5684810949085 210.7981941285025 910.3771925881387 219.6325580373635 C 923.6635104027448 230.49196220006417 941.573245247119 233.9370292913643 957.1712715766091 241.0892649183647"><title>袖・前袖山</title></path>
+<path id="sleeve-underarm-front" data-role="sew" data-entity-id="edge-cfac2122d293dafa" d="M 957.1712715766091 241.0892649183647 L 957.1712715766091 625"><title>袖・前袖下</title></path>
+<path id="sleeve-cuff" data-role="open" data-entity-id="edge-69fada447be4eeaa" d="M 957.1712715766091 625 C 931.4598847513299 623.3333333333333 905.8024597352635 620 880.0371111007714 620 C 825.0499987582933 620 770.7462799636735 635 715.7591676211953 635 C 686.5206106644745 635 657.6633122853697 628.3333333333334 628.6153846174568 625"><title>袖・袖口</title></path>
+<path id="sleeve-underarm-back" data-role="sew" data-entity-id="edge-dd9f083ce3fc49e0" d="M 628.6153846174568 625 L 628.6153846174568 241.0892649183647"><title>袖・後袖下</title></path>
+</g>
+<g class="construction" id="guides-sleeve">
+<path d="M 628.6153846174568 241.0892649183647 L 957.1712715766091 241.0892649183647"><title>袖幅線</title></path>
+<path d="M 628.6153846174568 400 L 957.1712715766091 400"><title>肘線</title></path>
+<path d="M 802.9029506249337 115 L 802.9029506249337 615"><title>袖中心線</title></path>
+</g>
+<path class="grain" d="M 802.9029506249337 266.08926491836473 L 802.9029506249337 595" marker-start="url(#grain-arrow)" marker-end="url(#grain-arrow)"/>
+<text x="809.9029506249337" y="430.54463245918237" >地の目</text>
+<path class="notch" data-notch-id="sleeve-back" d="M 693.6882593190337 186.1927525523778 L 697.9754288402455 190.39039206719954"/>
+<path class="notch" data-notch-id="sleeve-back" d="M 696.4866856622482 183.33463953823664 L 700.77385518346 187.53227905305837"/>
+<path class="notch" data-notch-id="sleeve-front" d="M 890.0862589679956 182.4207074296226 L 885.0699884110307 185.71267184305827"/>
+</g>
+<g id="calibration" class="outline">
+<line x1="20" y1="660" x2="120" y2="660" />
+<line x1="20" y1="656" x2="20" y2="662" />
+<line x1="30" y1="658" x2="30" y2="662" />
+<line x1="40" y1="658" x2="40" y2="662" />
+<line x1="50" y1="658" x2="50" y2="662" />
+<line x1="60" y1="658" x2="60" y2="662" />
+<line x1="70" y1="656" x2="70" y2="662" />
+<line x1="80" y1="658" x2="80" y2="662" />
+<line x1="90" y1="658" x2="90" y2="662" />
+<line x1="100" y1="658" x2="100" y2="662" />
+<line x1="110" y1="658" x2="110" y2="662" />
+<line x1="120" y1="656" x2="120" y2="662" />
+</g>
+<text x="20" y="672" >100 mm — 印刷倍率100%で実測確認</text>
+<text x="20" y="685" class="muted">bunka-old v0.1.0 ／ guide-point-cubic-v1</text>
+</svg>
