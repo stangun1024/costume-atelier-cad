@@ -1,7 +1,7 @@
 {
   "format": "aicad-cad-release",
   "version": 1,
-  "releaseId": "061aaebad48c3ba7102f1d567784329ead20c0de141df273683d0e57558a1473",
+  "releaseId": "0a28c5b1ef56f9fdad4dcd50902cd4ef359107e12f07052a644b97eac215e242",
   "files": {
     ".gitignore": "b3231edccb6a69cceaa2396f58dfb6b860b217d8ffa27f57651da411d8a8909e",
     "cad/authoring-forms.js": "dae386d0db73056931006d9380b2b7f064da7261273452237d9fcc9886466715",
@@ -15,6 +15,7 @@
     "core/path-tools.js": "14ccaff290a8a9440a6153af5db657449a40cc897df076ebce2aad0000720dcd",
     "core/transforms.js": "a5ea050adb8f88e425956b7a57bbc3df0bbbde85d65878e7ed10620c3685a761",
     "costume/implementation-error.js": "7cd44d85addac4eb52d9a97e8e37af23592ccfaad271db194252cb4cf6642441",
+    "costume/implementation-loop-batch.js": "dee75b7007763b1567550c7f24ad5ec485e3c5e3a2730510197d3d8cf6d6b294",
     "costume/implementation-loop.js": "13805b68099fed80b9b42328ae0047720eec4177b3e5dea1d60ad16ea6ab46e5",
     "costume/implementation-plan.js": "0e20d4ecc2af7493da1f78b82c77575b270a27d196f77ce1ad81ecd57e285941",
     "costume/pending-categories.js": "8dfdbe175de5e2523ef66c19e2e99eb1edcbd12fcb5ff28eb6bb265ce1260688",
@@ -463,9 +464,9 @@
     "pattern/references.js": "836260c5d16277f78bae4dc01345ceb31b186ffe9211139a15b478037872b08d",
     "pattern/sewing.js": "edf7beae85b43a72f02f420181489e3bde642846c8d7077c7fae8434d241a565",
     "pattern/validation.js": "7dab2f4cf902bd4017e81ef2bcccbaee4dfd280b4d637a66d54d5c45bfa277c9",
-    "README.md": "5e786549bdd4ca56a88300050196325c5abf76d9e882e40359425cdb790dd898",
+    "README.md": "46c1ccc3e7132865ed1b27c377c21708a7a6fce53552a00a1a267665b051ccd8",
     "scripts/check-json.mjs": "1b464e76e5e4de323c6c293c07776f2dd96d191eb163ad07282e03bb258dca57",
-    "scripts/run-cad-loop.mjs": "055fa276de12b269b4007e7a91a94bf3dfd5c4bec9edd628750d1b19050dad1d",
+    "scripts/run-cad-loop.mjs": "5e89627f8beafcb0581b7ac10d1312e64f99ec6b4e757f0beb4de4fed8fd2934",
     "scripts/run-implementation.mjs": "d07da3e1bc79b76dd73921da492b84715004568a6040af96b6cb1a7e0425be89",
     "scripts/tool-examples.mjs": "4b4449eaa426131587469a28631b5520637c5ed5266299f78e5121888f5457a1"
   },

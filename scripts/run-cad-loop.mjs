@@ -1,13 +1,15 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { implementationPattern } from '../costume/implementation-plan.js';
-import { applyLoopMessage, validateLoopSession } from '../costume/implementation-loop.js';
+import { validateLoopSession } from '../costume/implementation-loop.js';
+import { applyLoopReply } from '../costume/implementation-loop-batch.js';
 import { implementationError } from '../costume/implementation-error.js';
 import { createAIContext } from '../pattern/ai-context.js';
 import { executionReport } from '../costume/procedural-flow.js';
 import { renderPatternSvg } from '../export/pattern-svg.js';
 
-// A disposable, single-message preview. Never issue simulated request IDs to the app.
+// A disposable preview of one reply (single message or batch), applied exactly as the app does.
+// Never issue simulated request IDs to the app.
 const [requestPath, messagePath, outputPath] = process.argv.slice(2);
 if (!requestPath || !messagePath || !outputPath || process.argv.length !== 5) {
   console.error('Usage: node scripts/run-cad-loop.mjs ai-loop-packet.json candidate.json output-directory');
@@ -29,7 +31,7 @@ if (!requestPath || !messagePath || !outputPath || process.argv.length !== 5) {
       if (message[key] !== request.nextMessage?.[key]) throw Error(`Latest request header required: ${key}`);
     }
     const pattern = implementationPattern(local.base);
-    const applied = applyLoopMessage(pattern, local.session, message);
+    const applied = applyLoopReply(pattern, local.session, message);
     if (applied.duplicate) throw Error('This message has already been applied. Obtain the latest app packet.');
     const result = applied.result;
     const report = { previewOnly: true, releaseId: release.releaseId,
